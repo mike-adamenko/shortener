@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
@@ -47,7 +48,7 @@ class LinkController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/forward")
+    @GetMapping("/forward")
     @CrossOrigin
     ResponseEntity<?> forwardLink(String shortUrl) {
         Optional<Link> link = linkRepository.findByShortUrl(shortUrl);

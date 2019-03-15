@@ -22,14 +22,11 @@ class Links extends Component {
 
     forward(event){
         event.preventDefault();
-        fetch('/api/forward', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/x-www-form-urlencoded'
-            },
-            mode: 'no-cors',
-            body: `shortUrl=${event.currentTarget.href}`
-        })
+        window.location.href = `api/forward?shortUrl=${event.currentTarget.href}`;
+        // fetch(`/api/forward?shortUrl=${event.currentTarget.href}`, {
+        //     method: 'GET',
+        //     mode: 'no-cors'
+        // })
     }
 
     async remove(id) {

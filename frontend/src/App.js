@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import Home from './Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Links from './Links';
 import LinkEdit from './LinkEdit';
@@ -10,8 +9,7 @@ class App extends Component {
         return (
             <Router>
                 <Switch>
-                    <Route path='/' exact={true} component={Home}/>
-                    <Route path='/links' exact={true} component={Links}/>
+                    <Route path='/' exact={true} component={Links}/>
                     <Route path='/links/:id' component={LinkEdit}/>
                 </Switch>
             </Router>
