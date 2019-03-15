@@ -26,7 +26,7 @@ export default class AppNavbar extends Component {
                             href="https://www.linkedin.com/in/mikeadamenko">Mike Adamenko</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="https://github.com/mike-adamenko/springbootreact">GitHub</NavLink>
+                        <NavLink href="https://github.com/mike-adamenko/shortener">GitHub</NavLink>
                     </NavItem>
                 </Nav>
             </Collapse>
