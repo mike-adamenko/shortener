@@ -21,8 +21,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/s")
 class RedirectController {
-
-    private final Logger log = LoggerFactory.getLogger(RedirectController.class);
     private LinkService linkService;
     private StatsService statsService;
 

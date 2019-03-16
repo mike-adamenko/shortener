@@ -9,7 +9,5 @@ import java.util.Optional;
  * @author Mike Adamenko (mnadamenko@gmail.com)
  */
 public interface LinkRepository extends JpaRepository<Link, Long> {
-    Link findByUrl(String url);
-
     Optional<Link> findFirstBySlug(String url);
 }

@@ -19,8 +19,6 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/api")
 class StatsController {
-
-    private final Logger log = LoggerFactory.getLogger(StatsController.class);
     private StatsService statsService;
 
     public StatsController(StatsService statsService) {
