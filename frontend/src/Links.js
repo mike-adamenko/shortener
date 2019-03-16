@@ -9,7 +9,7 @@ class Links extends Component {
         super(props);
         this.state = {links: [], isLoading: true};
         this.remove = this.remove.bind(this);
-        this.forward = this.forward.bind(this);
+        this.redirect = this.redirect.bind(this);
     }
 
     componentDidMount() {
@@ -20,9 +20,10 @@ class Links extends Component {
             .then(data => this.setState({links: data, isLoading: false}));
     }
 
-    forward(event){
+    redirect(event){
         event.preventDefault();
-        window.location.href = `api/forward?shortUrl=${event.currentTarget.href}`;
+        window.open(`api/redirect?shortUrl=${event.currentTarget.href}`, '_blank');
+        // window.location.href = `api/redirect?shortUrl=${event.currentTarget.href}`;
         // fetch(`/api/forward?shortUrl=${event.currentTarget.href}`, {
         //     method: 'GET',
         //     mode: 'no-cors'
@@ -52,7 +53,7 @@ class Links extends Component {
         const linkList = links.map(link => {
             return <tr key={link.id}>
                 <td style={{whiteSpace: 'nowrap'}}><a href={link.url}>{link.url}</a></td>
-                <td><a href={link.shortUrl} onClick={this.forward}>{link.shortUrl}</a></td>
+                <td><a href={link.shortUrl} onClick={this.redirect}>{link.shortUrl}</a></td>
                 <td>
                     <ButtonGroup>
                         <Button size="sm" color="primary" tag={Link} to={"/links/" + link.id}>Edit</Button>

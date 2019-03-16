@@ -19,7 +19,7 @@ class Initializer implements CommandLineRunner {
 
     @Override
     public void run(String... strings) {
-        Stream.of("http://google.com", "https://github.com/maxaugustyn/Shortenize/tree/master/public").forEach(url ->
+        Stream.of("https://www.google.com", "https://www.neueda.com/about-us").forEach(url ->
                 repository.save(new Link(url, LinkUtils.shortenize(url)))
         );
 

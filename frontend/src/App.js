@@ -9,7 +9,7 @@ class App extends Component {
         return (
             <Router>
                 <Switch>
-                    <Route path='/' exact={true} component={Links}/>
+                    <Route exact path='/' component={Links}/>
                     <Route path='/links/:id' component={LinkEdit}/>
                 </Switch>
             </Router>

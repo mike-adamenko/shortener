@@ -47,7 +47,7 @@ class LinkEdit extends Component {
             },
             body: JSON.stringify(item),
         });
-        this.props.history.push('/links');
+        this.props.history.push('/');
     }
 
     render() {
@@ -66,7 +66,7 @@ class LinkEdit extends Component {
                     </FormGroup>
                     <FormGroup>
                         <Button color="primary" type="submit">Save</Button>{' '}
-                        <Button color="secondary" tag={Link} to="/links">Cancel</Button>
+                        <Button color="secondary" tag={Link} to="/">Cancel</Button>
                     </FormGroup>
                 </Form>
             </Container>

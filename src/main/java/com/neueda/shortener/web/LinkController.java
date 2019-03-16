@@ -8,18 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
@@ -48,13 +39,11 @@ class LinkController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/forward")
-    @CrossOrigin
-    ResponseEntity<?> forwardLink(String shortUrl) {
+    @GetMapping("/redirect")
+    ResponseEntity<?> redirectLink(String shortUrl) {
         Optional<Link> link = linkRepository.findByShortUrl(shortUrl);
         return link.map(response -> {
             HttpHeaders headers = new HttpHeaders();
-//            headers.add("Access-Control-Allow-Origin", "*");
             headers.add("Location", response.getUrl());
             return new ResponseEntity<String>(headers, HttpStatus.FOUND);
         })
