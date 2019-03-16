@@ -21,8 +21,8 @@ class LinkEdit extends Component {
 
     async componentDidMount() {
         if (this.props.match.params.id !== 'new') {
-            const group = await (await fetch(`/api/link/${this.props.match.params.id}`)).json();
-            this.setState({item: group});
+            const link = await (await fetch(`/api/link/${this.props.match.params.id}`)).json();
+            this.setState({item: link});
         }
     }
 

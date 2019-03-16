@@ -9,9 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,14 +27,14 @@ public class LinkControllerTest {
 
     @Test
     public void shouldReturnAllLinks() throws Exception {
-        String expectedResult = "[{'id':1,'url':'https://www.google.com','shortUrl':'http://short.me/331e5b6b'},{'id':2,'url':'https://www.neueda.com/about-us','shortUrl':'http://short.me/e77e23b8'}]";
+        String expectedResult = "[{\"id\":1,\"url\":\"https://www.google.com\",\"shortUrl\":\"http://short.me/331e5b6b\"},{\"id\":2,\"url\":\"https://www.neueda.com/about-us\",\"shortUrl\":\"http://short.me/e77e23b8\"}]";
         this.mockMvc.perform(get("/api/links")).andExpect(status().isOk())
                 .andExpect(content().json(expectedResult));
     }
 
     @Test
     public void shouldReturn1Link() throws Exception {
-        String expectedResult = "{'id':1,'url':'https://www.google.com','shortUrl':'http://short.me/331e5b6b'}";
+        String expectedResult = "{\"id\":1,\"url\":\"https://www.google.com\",\"shortUrl\":\"http://short.me/331e5b6b\"}";
 
         this.mockMvc.perform(get("/api/link/1")).andExpect(status().isOk())
                 .andExpect(content().json(expectedResult));
@@ -44,12 +42,27 @@ public class LinkControllerTest {
 
     @Test
     public void shouldCreateAndDeleteLink() throws Exception {
-        String createJSON = "{'url':'https://hub.docker.com/editions/community/docker-ce-desktop-windows','shortUrl':''}";
-        String expectedResultCreateJSON ="{'id':3,'url':'https://hub.docker.com/editions/community/docker-ce-desktop-windows','shortUrl':'http://short.me/5d39e371'}";
-        this.mockMvc.perform(post("/api/link").contentType(MediaType.APPLICATION_JSON_UTF8).content(createJSON)).andExpect(status().isCreated())
+        String createJSON = "{\"url\":\"https://www.docker.com/products/docker-desktop\"}";
+        String expectedResultCreateJSON ="{\"id\":3,\"url\":\"https://www.docker.com/products/docker-desktop\",\"shortUrl\":\"http://short.me/ec0ed78d\"}";
+        this.mockMvc.perform(post("/api/link").contentType(MediaType.APPLICATION_JSON).content(createJSON)).andExpect(status().isCreated())
                 .andExpect(content().json(expectedResultCreateJSON));
 
-//        this.mockMvc.perform(delete("/api/link/3")).andExpect(status().isOk());
+        this.mockMvc.perform(delete("/api/link/3")).andExpect(status().isOk());
+
+    }
+
+    @Test
+    public void shouldUpdateLink() throws Exception {
+        String updateJSON = "{\"id\":1,\"url\":\"https://www.docker.com/products/docker-desktop\"}";
+        String expectedResultUpdateJSON ="{\"id\":1,\"url\":\"https://www.docker.com/products/docker-desktop\",\"shortUrl\":\"http://short.me/ec0ed78d\"}";
+        String revertUpdateJSON = "{\"id\":1,\"url\":\"https://www.google.com\"}";
+        String expectedResultRevertUpdateJSON ="{\"id\":1,\"url\":\"https://www.google.com\",\"shortUrl\":\"http://short.me/331e5b6b\"}";
+
+        this.mockMvc.perform(put("/api/link").contentType(MediaType.APPLICATION_JSON).content(updateJSON)).andExpect(status().isOk())
+                .andExpect(content().json(expectedResultUpdateJSON));
+
+        this.mockMvc.perform(put("/api/link").contentType(MediaType.APPLICATION_JSON).content(revertUpdateJSON)).andExpect(status().isOk())
+                .andExpect(content().json(expectedResultRevertUpdateJSON));
 
     }
 
