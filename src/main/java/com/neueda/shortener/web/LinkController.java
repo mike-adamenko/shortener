@@ -15,6 +15,9 @@ import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Optional;
 
+/**
+ * @author Mike Adamenko (mnadamenko@gmail.com)
+ */
 @RestController
 @RequestMapping("/api")
 class LinkController {

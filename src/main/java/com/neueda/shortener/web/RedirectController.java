@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+/**
+ * @author Mike Adamenko (mnadamenko@gmail.com)
+ */
 @RestController
 @RequestMapping("/s")
 class RedirectController {

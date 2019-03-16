@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.stream.Stream;
 
+/**
+ * @author Mike Adamenko (mnadamenko@gmail.com)
+ */
 @Component
 class Initializer implements CommandLineRunner {
 

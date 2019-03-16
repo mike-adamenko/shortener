@@ -3,7 +3,7 @@ package com.neueda.shortener.util;
 import java.util.zip.CRC32;
 
 /**
- *
+ * @author Mike Adamenko (mnadamenko@gmail.com)
  */
 public final class LinkUtils {
     private static CRC32 crc = new CRC32();

@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 
+/**
+ * @author Mike Adamenko (mnadamenko@gmail.com)
+ */
 @RestController
 @RequestMapping("/api")
 class StatsController {

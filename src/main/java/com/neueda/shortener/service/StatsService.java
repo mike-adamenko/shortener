@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.Optional;
 
+/**
+ * @author Mike Adamenko (mnadamenko@gmail.com)
+ */
 @Service
 public class StatsService {
 
