@@ -7,7 +7,7 @@ class LinkEdit extends Component {
 
     emptyItem = {
         url: '',
-        shortUrl: ''
+        slug: ''
     };
 
     constructor(props) {

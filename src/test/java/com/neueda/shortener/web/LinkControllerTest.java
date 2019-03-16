@@ -27,14 +27,16 @@ public class LinkControllerTest {
 
     @Test
     public void shouldReturnAllLinks() throws Exception {
-        String expectedResult = "[{\"id\":1,\"url\":\"https://www.google.com\",\"shortUrl\":\"http://short.me/331e5b6b\"},{\"id\":2,\"url\":\"https://www.neueda.com/about-us\",\"shortUrl\":\"http://short.me/e77e23b8\"}]";
+        String expectedResult = "[{\"id\":1,\"url\":\"https://www.google.com\",\"slug\":\"331e5b6b\",\"stats\":" +
+                "{\"id\":1,\"redirectCount\":0}},{\"id\":2,\"url\":\"https://www.neueda.com/about-us\",\"slug\":" +
+                "\"e77e23b8\",\"stats\":{\"id\":2,\"redirectCount\":0}}]";
         this.mockMvc.perform(get("/api/links")).andExpect(status().isOk())
                 .andExpect(content().json(expectedResult));
     }
 
     @Test
     public void shouldReturn1Link() throws Exception {
-        String expectedResult = "{\"id\":1,\"url\":\"https://www.google.com\",\"shortUrl\":\"http://short.me/331e5b6b\"}";
+        String expectedResult = "{\"id\":1,\"url\":\"https://www.google.com\",\"slug\":\"331e5b6b\",\"stats\":{\"id\":1,\"redirectCount\":0}}";
 
         this.mockMvc.perform(get("/api/link/1")).andExpect(status().isOk())
                 .andExpect(content().json(expectedResult));
@@ -43,7 +45,7 @@ public class LinkControllerTest {
     @Test
     public void shouldCreateAndDeleteLink() throws Exception {
         String createJSON = "{\"url\":\"https://www.docker.com/products/docker-desktop\"}";
-        String expectedResultCreateJSON ="{\"id\":3,\"url\":\"https://www.docker.com/products/docker-desktop\",\"shortUrl\":\"http://short.me/ec0ed78d\"}";
+        String expectedResultCreateJSON = "{\"id\":3,\"url\":\"https://www.docker.com/products/docker-desktop\",\"slug\":\"ec0ed78d\",\"stats\":{\"id\":3,\"redirectCount\":0}}";
         this.mockMvc.perform(post("/api/link").contentType(MediaType.APPLICATION_JSON).content(createJSON)).andExpect(status().isCreated())
                 .andExpect(content().json(expectedResultCreateJSON));
 
@@ -54,9 +56,9 @@ public class LinkControllerTest {
     @Test
     public void shouldUpdateLink() throws Exception {
         String updateJSON = "{\"id\":1,\"url\":\"https://www.docker.com/products/docker-desktop\"}";
-        String expectedResultUpdateJSON ="{\"id\":1,\"url\":\"https://www.docker.com/products/docker-desktop\",\"shortUrl\":\"http://short.me/ec0ed78d\"}";
+        String expectedResultUpdateJSON = "{\"id\":1,\"url\":\"https://www.docker.com/products/docker-desktop\",\"slug\":\"ec0ed78d\",\"stats\":{\"id\":1,\"redirectCount\":0}}";
         String revertUpdateJSON = "{\"id\":1,\"url\":\"https://www.google.com\"}";
-        String expectedResultRevertUpdateJSON ="{\"id\":1,\"url\":\"https://www.google.com\",\"shortUrl\":\"http://short.me/331e5b6b\"}";
+        String expectedResultRevertUpdateJSON = "{\"id\":1,\"url\":\"https://www.google.com\",\"slug\":\"331e5b6b\",\"stats\":{\"id\":1,\"redirectCount\":0}}";
 
         this.mockMvc.perform(put("/api/link").contentType(MediaType.APPLICATION_JSON).content(updateJSON)).andExpect(status().isOk())
                 .andExpect(content().json(expectedResultUpdateJSON));
@@ -66,5 +68,5 @@ public class LinkControllerTest {
 
     }
 
-    
+
 }

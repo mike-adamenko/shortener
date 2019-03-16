@@ -1,11 +1,10 @@
 package com.neueda.shortener.web;
 
 import com.neueda.shortener.model.Link;
-import com.neueda.shortener.model.LinkRepository;
+import com.neueda.shortener.service.LinkService;
 import com.neueda.shortener.util.LinkUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,41 +20,29 @@ import java.util.Optional;
 class LinkController {
 
     private final Logger log = LoggerFactory.getLogger(LinkController.class);
-    private LinkRepository linkRepository;
+    private LinkService linkService;
 
-    public LinkController(LinkRepository linkRepository) {
-        this.linkRepository = linkRepository;
+    public LinkController(LinkService linkService) {
+        this.linkService = linkService;
     }
 
     @GetMapping("/links")
     Collection<Link> Links() {
-        return linkRepository.findAll();
+        return linkService.findAll();
     }
 
     @GetMapping("/link/{id}")
     ResponseEntity<?> getLink(@PathVariable Long id) {
-        Optional<Link> link = linkRepository.findById(id);
+        Optional<Link> link = linkService.findById(id);
         return link.map(response -> ResponseEntity.ok().body(response))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/redirect")
-    ResponseEntity<?> redirectLink(String shortUrl) {
-        Optional<Link> link = linkRepository.findByShortUrl(shortUrl);
-        return link.map(response -> {
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Location", response.getUrl());
-            return new ResponseEntity<String>(headers, HttpStatus.FOUND);
-        })
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-
     @PostMapping("/link")
     ResponseEntity<Link> createLink(@Valid @RequestBody Link link) throws URISyntaxException {
-        log.info("Request to create Link: {}", link);
-        link.setShortUrl(LinkUtils.shortenize(link.getUrl()));
-        Link result = linkRepository.save(link);
+        log.info("Request to save Link: {}", link);
+        link.setSlug(LinkUtils.shortenize(link.getUrl()));
+        Link result = linkService.save(link);
         return ResponseEntity.created(new URI("/api/link/" + result.getId()))
                 .body(result);
     }
@@ -63,15 +50,15 @@ class LinkController {
     @PutMapping("/link")
     ResponseEntity<Link> updateLink(@Valid @RequestBody Link link) {
         log.info("Request to update Link: {}", link);
-        link.setShortUrl(LinkUtils.shortenize(link.getUrl()));
-        Link result = linkRepository.save(link);
+        link.setSlug(LinkUtils.shortenize(link.getUrl()));
+        Link result = linkService.save(link);
         return ResponseEntity.ok().body(result);
     }
 
     @DeleteMapping("/link/{id}")
     public ResponseEntity<?> deleteLink(@PathVariable Long id) {
         log.info("Request to delete Link: {}", id);
-        linkRepository.deleteById(id);
+        linkService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 }

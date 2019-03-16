@@ -9,7 +9,6 @@ class Links extends Component {
         super(props);
         this.state = {links: [], isLoading: true};
         this.remove = this.remove.bind(this);
-        this.redirect = this.redirect.bind(this);
     }
 
     componentDidMount() {
@@ -18,16 +17,6 @@ class Links extends Component {
         fetch('api/links')
             .then(response => response.json())
             .then(data => this.setState({links: data, isLoading: false}));
-    }
-
-    redirect(event){
-        event.preventDefault();
-        window.open(`api/redirect?shortUrl=${event.currentTarget.href}`, '_blank');
-        // window.location.href = `api/redirect?shortUrl=${event.currentTarget.href}`;
-        // fetch(`/api/forward?shortUrl=${event.currentTarget.href}`, {
-        //     method: 'GET',
-        //     mode: 'no-cors'
-        // })
     }
 
     async remove(id) {
@@ -51,9 +40,11 @@ class Links extends Component {
         }
 
         const linkList = links.map(link => {
+            const linkPath = "http://"+window.location.hostname+":"+window.location.port+"/s/"+link.slug;
             return <tr key={link.id}>
-                <td style={{whiteSpace: 'nowrap'}}><a href={link.url}>{link.url}</a></td>
-                <td><a href={link.shortUrl} onClick={this.redirect}>{link.shortUrl}</a></td>
+                <td><a href={link.url}>{link.url}</a></td>
+                <td><a href={linkPath}>{linkPath}</a></td>
+                <td>{link.stats.redirectCount}</td>
                 <td>
                     <ButtonGroup>
                         <Button size="sm" color="primary" tag={Link} to={"/links/" + link.id}>Edit</Button>
@@ -76,6 +67,7 @@ class Links extends Component {
                         <tr>
                             <th width="20%">URL</th>
                             <th width="20%">Short URL</th>
+                            <th width="20%">Redirects</th>
                             <th width="10%">Actions</th>
                         </tr>
                         </thead>

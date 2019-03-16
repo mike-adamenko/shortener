@@ -1,28 +1,28 @@
 package com.neueda.shortener.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 
 @Entity
-@Table
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Link {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
     @Column(nullable = false)
     private String url;
-    private String shortUrl;
+    private String slug;
+    @OneToOne(mappedBy = "link", cascade = CascadeType.ALL)
+    private Stats stats;
 
     public Link() {
     }
 
-    public Link(String url, String shortUrl) {
+    public Link(String url, String slug) {
         this.url = url;
-        this.shortUrl = shortUrl;
+        this.slug = slug;
     }
 
     public Long getId() {
@@ -41,12 +41,20 @@ public class Link {
         this.url = url;
     }
 
-    public String getShortUrl() {
-        return shortUrl;
+    public String getSlug() {
+        return slug;
     }
 
-    public void setShortUrl(String shortUrl) {
-        this.shortUrl = shortUrl;
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public Stats getStats() {
+        return stats;
+    }
+
+    public void setStats(Stats stats) {
+        this.stats = stats;
     }
 
     @Override
@@ -54,7 +62,8 @@ public class Link {
         return "Link{" +
                 "id=" + id +
                 ", url='" + url + '\'' +
-                ", shortUrl='" + shortUrl + '\'' +
+                ", slug='" + slug + '\'' +
+                ", stats=" + stats +
                 '}';
     }
 }
