@@ -23,6 +23,10 @@ export default class AppNavbar extends Component {
                 <Nav className="ml-auto" navbar>
                     <NavItem>
                         <NavLink
+                            href="/swagger-ui.html">API Documentation</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink
                             href="https://www.linkedin.com/in/mikeadamenko">Mike Adamenko</NavLink>
                     </NavItem>
                     <NavItem>
