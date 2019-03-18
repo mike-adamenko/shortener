@@ -22,9 +22,9 @@ Back-end is implemented as a spring boot application.
 Front-end is a react app.  
 Persistent storage is implemented as in-memory H2 database. 
 
-#### REST API
+#### REST API Documentation
 
-
+Availiable at `http://localhost:8080/swagger-ui.html`
 
 ### Run as a spring boot application
 
