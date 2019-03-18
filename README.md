@@ -28,11 +28,13 @@ Availiable at `http://localhost:8080/swagger-ui.html`
 
 ### Run as a spring boot application
 
-Build: mvn clean install  
+- Build: 
 
-Run:    
+    `mvn clean install`  
 
-` java -jar target/shortener-0.0.1-SNAPSHOT.jar`
+- Run:    
+
+    ` java -jar target/shortener-0.0.1-SNAPSHOT.jar`
 
 ### Run as a docker container
 
@@ -43,16 +45,20 @@ Add `$(boot2docker shellinit 2> /dev/null)` to the bottom of your `.bash_profile
 (or similar env-setting configuration file) and refresh your shell to ensure proper 
 environment variables are configured._  
 
- Build:  
+- You can PULL an image :  
+
+    `docker pull sunvitebsk/shortener`
+    
+    OR  BUILD an image:  
  
   `mvn clean install dockerfile:build`  
  
- Run:  
+ - Run:  
  
- `docker run -p 8080:8080 -t sunvitebsk/shortener:latest`
+     `docker run -p 8080:8080 -t sunvitebsk/shortener:latest`
  
 
-Open your web browser, and navigate to http://localhost:8080
+Open your web browser, and navigate to `http://localhost:8080`
 
-Database console availiable at http://localhost:8080/h2-console  
-Make sure that you use jdbc:h2:mem:testdb as JDBC URL.
+Database console availiable at `http://localhost:8080/h2-console`  
+Make sure that you use `jdbc:h2:mem:testdb` as JDBC URL.
