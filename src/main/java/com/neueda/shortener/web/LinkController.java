@@ -16,6 +16,8 @@ import java.util.Collection;
 import java.util.Optional;
 
 /**
+ * Link controller. Entry point for link API requests.
+ *
  * @author Mike Adamenko (mnadamenko@gmail.com)
  */
 @RestController

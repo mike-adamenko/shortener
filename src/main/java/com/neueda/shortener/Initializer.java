@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import java.util.stream.Stream;
 
 /**
+ * Spring boot inizializer. Creates initial data.
+ *
  * @author Mike Adamenko (mnadamenko@gmail.com)
  */
 @Component
@@ -28,7 +30,5 @@ class Initializer implements CommandLineRunner {
         Stream.of("https://www.google.com", "https://www.neueda.com/about-us").forEach(url ->
                 linkService.save(new Link(url, LinkUtils.shortenize(url)))
         );
-
-        linkRepository.findAll().forEach(System.out::println);
     }
 }

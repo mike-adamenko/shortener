@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 /**
+ * Statistics controller.
+ *
  * @author Mike Adamenko (mnadamenko@gmail.com)
  */
 @RestController

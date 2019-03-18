@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 /**
+ * Handle redirect requests
+ *
  * @author Mike Adamenko (mnadamenko@gmail.com)
  */
 @RestController

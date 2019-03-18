@@ -5,6 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
 /**
+ * Link contains:
+ *  url - original URL,
+ *  slug - meaningful part of shorten URL
+ *
+ *  Link has One-to-One relations with @{@link Stats} linked by primary keys.
+ *
  * @author Mike Adamenko (mnadamenko@gmail.com)
  */
 @Entity

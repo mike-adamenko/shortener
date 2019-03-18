@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
 /**
+ * Statistics. Calculates count of redirects by short URL.
+ *
  * @author Mike Adamenko (mnadamenko@gmail.com)
  */
 @Entity
@@ -21,8 +23,7 @@ public class Stats {
     @JsonIgnore
     private Link link;
 
-    public Stats() {
-    }
+    public Stats() {}
 
     public Stats(Link link) {
         this.link = link;

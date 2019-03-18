@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.Optional;
 
 /**
+ * Service layer for Statistics. Handles buisness logic for @{@link Stats}.
+ *
  * @author Mike Adamenko (mnadamenko@gmail.com)
  */
 @Service

@@ -10,6 +10,8 @@ import java.util.Collection;
 import java.util.Optional;
 
 /**
+ * Service layer for Link. Handles buisness logic for @{@link Link}.
+ *
  * @author Mike Adamenko (mnadamenko@gmail.com)
  */
 @Service
